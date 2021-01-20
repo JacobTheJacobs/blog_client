@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const create = (category, token) => {
   console.log(category);
@@ -24,22 +24,48 @@ export const create = (category, token) => {
 
 export const getCategories = () => {
   const request = axios
-    .get(`${BASE_URL}/categories`)
+    .get(`http://localhost:8000/categories`)
     .then((response) => {
-      console.log(response);
       return response;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      if (err.response) {
+        return err.response;
+      } else if (err.request) {
+        console.log(err.request.data);
+      } else {
+        console.log(err);
+      }
+    });
   return request;
 };
 
-export const singleCategory = (slug) => {
+export const singleCategory = (slug, token) => {
+  console.log(slug);
+  console.log(token);
   const request = axios
-    .get(`${BASE_URL}/category/${slug}`)
+    .post(
+      `http://localhost:8000/category/${slug}`,
+      { slug: slug },
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
     .then((response) => {
       return response;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      if (err.response) {
+        return err.response;
+      } else if (err.request) {
+        console.log(err.request.data);
+      } else {
+        console.log(err);
+      }
+    });
   return request;
 };
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import cookie from "js-cookie";
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = process.env.REACT_APP_DEVELOPMENT_API;
 
 export const signin = (user) => {
   const request = axios

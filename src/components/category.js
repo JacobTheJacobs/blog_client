@@ -8,7 +8,7 @@ const Category = () => {
     name: "",
     error: false,
     success: false,
-    categories: [],
+    categories: [""],
     removed: false,
     reload: false,
   });
@@ -30,44 +30,41 @@ const Category = () => {
     });
   };
 
-  const showCategories = () => {
-    console.log(categories);
-    return (
-      <div>
-        <table className="table table-striped">
-          <thead className="thead-dark">
-            <tr>
-              <th>#</th>
-              <th>_ID</th>
-              <th>SLUG</th>
-              <th>NAME</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.length > 0
-              ? categories.map((cat, i) => (
-                  <tr key={i}>
-                    <td>{i + 1}</td>
-                    <td>{cat._id}</td>
-                    <td>{cat.slug}</td>
-                    <td>{cat.name}</td>
-                    <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => deleteConfirm(cat.slug)}
-                      >
-                        <i className="fas fa-angle-double-right"></i> Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              : ""}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
+  const showCategories = () => (
+    <div>
+      <table className="table table-striped">
+        <thead className="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>_ID</th>
+            <th>SLUG</th>
+            <th>NAME</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {categories.length > 0
+            ? categories.map((cat, i) => (
+                <tr key={i}>
+                  <td>{i + 1}</td>
+                  <td>{cat._id}</td>
+                  <td>{cat.slug}</td>
+                  <td>{cat.name}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteConfirm(cat.slug)}
+                    >
+                      <i className="fas fa-angle-double-right"></i> Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            : ""}
+        </tbody>
+      </table>
+    </div>
+  );
 
   const deleteConfirm = (slug) => {
     let answer = window.confirm(

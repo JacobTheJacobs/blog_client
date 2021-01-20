@@ -15,7 +15,10 @@ const Navbar = () => {
     );
   };
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+    <nav
+      className="navbar navbar-expand-sm navbar-dark bg-dark p-0"
+      style={{ fontWeight: "bold" }}
+    >
       <div className="container">
         <Link to="/" className="navbar-brand">
           Blog
@@ -30,7 +33,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <ul className="navbar-nav">
             <li className="nav-item px-2">
-              <Link to="/" className="nav-link active">
+              <Link to="/" className="nav-link ">
                 Dashboard
               </Link>
             </li>

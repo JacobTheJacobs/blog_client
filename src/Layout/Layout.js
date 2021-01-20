@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import SideMenu from "./SideMenu";
 
 const Layout = ({ children }) => {
   return (
@@ -21,7 +20,7 @@ const Layout = ({ children }) => {
           </div>
         </header>
         {children}
-        <SideMenu />
+
         <Footer />
       </BrowserRouter>
     </div>

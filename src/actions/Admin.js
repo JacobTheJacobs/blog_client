@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { isAuth } from "../actions/auth";
+import { isAuth } from "./auth";
 
 const Admin = ({ children }) => {
   let history = useHistory();

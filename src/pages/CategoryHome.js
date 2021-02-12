@@ -8,7 +8,7 @@ import renderHTML from "react-render-html";
 import moment from "moment";
 const DOMAIN = process.env.REACT_APP_DEVELOPMENT_API;
 const APP_NAME = process.env.REACT_APP_APP_NAME;
-
+const BASE_URL = process.env.REACT_APP_DEVELOPMENT_API;
 const CategoryHome = (props) => {
   const [category, setCategorie] = useState("");
   const [blogs, setBlogs] = useState([]);
@@ -64,6 +64,8 @@ const CategoryHome = (props) => {
     </div>
   );
 
+  //show size categories
+
   return (
     <>
       {headMeta()}
@@ -74,11 +76,65 @@ const CategoryHome = (props) => {
               <div className="col-md-12 pt-3">
                 <h1 className="display-4 font-weight-bold">{category?.name}</h1>
                 {blogs.length > 0
-                  ? blogs.map((b, i) => <div key={{ i }}>{b.title}</div>)
+                  ? blogs.map((blog) => (
+                      <div
+                        className="w3-card-4 w3-margin w3-white"
+                        key={blog._id}
+                        style={{ margin: ".5em" }}
+                      >
+                        <img
+                          style={{
+                            maxHeight: "250px",
+                            width: "auto",
+
+                            left: "50%",
+                            top: "50%",
+                            height: "auto",
+                            width: "100%",
+                          }}
+                          src={`${BASE_URL}/blog/photo/${blog.slug}`}
+                          alt={blog.title}
+                          className="card-img-top"
+                          alt="..."
+                        />
+                        <div className="w3-container">
+                          <h3>
+                            <b>{blog.title}</b>
+                          </h3>
+                          <h5>
+                            Written by {blog.postedBy.name},{" "}
+                            <span className="w3-opacity">
+                              Published {moment(blog.updatedAt).fromNow()}
+                            </span>
+                          </h5>
+                        </div>
+
+                        <div className="w3-container">
+                          <p className="card-text">
+                            {renderHTML(String(blog.excerpt))}
+                          </p>
+                          <br></br>
+                          <div className="w3-row">
+                            <div>
+                              {" "}
+                              <Link
+                                style={{ width: "60%", padding: "20px" }}
+                                to={`/blog/${blog.slug}`}
+                                className="w3-button  w3-white w3-border"
+                              >
+                                <b>READ MORE »</b>
+                              </Link>
+                            </div>
+                            <br></br>
+                          </div>
+                        </div>
+                      </div>
+                    ))
                   : null}
               </div>
             </header>
           </div>
+          <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
         </main>
       </>
     </>

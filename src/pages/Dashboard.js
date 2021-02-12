@@ -7,7 +7,7 @@ import AllBlogs from "../components/allblogs";
 const Dashboard = () => {
   return (
     <Admin>
-      <div>
+      <div style={{ backgroundColor: "white" }}>
         <header id="main-header" className="py-2 bg-primary text-white">
           <div className="container">
             <div className="row">

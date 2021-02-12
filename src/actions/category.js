@@ -23,8 +23,9 @@ export const create = (category, token) => {
 };
 
 export const getCategories = () => {
+  console.log("getcategories");
   const request = axios
-    .get(`http://localhost:8000/categories`)
+    .get(`${BASE_URL}/categories`)
     .then((response) => {
       return response;
     })
@@ -45,7 +46,7 @@ export const singleCategory = (slug, token) => {
   console.log(token);
   const request = axios
     .post(
-      `http://localhost:8000/category/${slug}`,
+      `${BASE_URL}/category/${slug}`,
       { slug: slug },
       {
         headers: {

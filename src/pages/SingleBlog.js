@@ -93,13 +93,28 @@ const SingleBlog = (props) => {
     <div>
       {blog != null
         ? blog.categories.map((c, i) => (
-            <Link
-              key={i}
-              to={`/categories/${c.slug}`}
-              style={{ margin: "10px" }}
+            <div
+              key={c._id}
+              className="w3-card w3-margin"
+              style={{
+                margin: "1em",
+                textAlign: "center",
+                justifyContent: "center",
+              }}
             >
-              <a className="btn btn-primary mr-1 ml-1 mt-3">{c.name}</a>
-            </Link>
+              <Link
+                key={i}
+                to={`/categories/${c.name}`}
+                style={{
+                  margin: "10px",
+                  color: "grey",
+                  textDecoration: "none",
+                }}
+                className="w3-container w3-padding"
+              >
+                {c.name}
+              </Link>
+            </div>
           ))
         : null}
     </div>
@@ -129,7 +144,7 @@ const SingleBlog = (props) => {
                     <section>
                       <Link href={`/blogs/${blog.slug}`}>
                         <a>
-                          <h5 className="card-title">{blog.title}</h5>
+                          <h3 className="card-title">{blog.title}</h3>
                         </a>
                       </Link>
                       <p className="card-text">{renderHTML(blog.excerpt)}</p>
@@ -175,16 +190,12 @@ const SingleBlog = (props) => {
                 <div className="container">
                   <h1
                     className="display-2 pb-3 pt-3 text-center"
-                    style={{ fontWeight: "bold" }}
+                    style={{ fontWeight: "bold", textTransform: "uppercase" }}
                   >
                     {blog.title}
                   </h1>
-                  <p className="lead mt-3 mark">
-                    Written by {blog.postedBy.name} | Published{" "}
-                    {moment(blog.updatedAt).fromNow()}
-                  </p>
 
-                  <div className="pb-3">
+                  <div className="pb-3 ">
                     {showBlogCategories(blog)}
 
                     <br />
@@ -197,15 +208,6 @@ const SingleBlog = (props) => {
             <p className="container" style={{ wordWrap: "break-word" }}>
               {renderHTML(String(blog.body))}
             </p>
-
-            <div className="container">
-              <h4 className="text-center pt-5 pb-5 h2">Related blogs</h4>
-              <div className="row">{showRelatedBlog()}</div>
-            </div>
-
-            <div className="container pb-5">
-              <p>show comments</p>
-            </div>
           </article>
         </main>
       ) : null}

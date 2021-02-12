@@ -8,19 +8,22 @@ const Layout = ({ children }) => {
     <div>
       <BrowserRouter>
         <Navbar />
-        <header id="main-header" className="py-2 bg-primary text-white">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6">
-                <h1>
-                  <i className="fas fa-cog"></i>
-                </h1>
-              </div>
+
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <h1>
+                <i className="fas fa-cog"></i>
+              </h1>
             </div>
           </div>
-        </header>
-        {children}
+        </div>
 
+        {children}
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
         <Footer />
       </BrowserRouter>
     </div>

@@ -34,7 +34,7 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/signin" exact component={SigninComponent} />
+          <Route path="/davai" exact component={SigninComponent} />
           <Route path="/myDashboard" exact component={Dashboard} />
           <Route path="/myDashboard/post/:id" exact component={PostDetails} />
           <Route path="/blog/:id" exact component={SingleBlog} />

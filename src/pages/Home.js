@@ -107,45 +107,69 @@ const Home = () => {
       )
     );
   };
-  //list all categories
-  const showCategories = () => (
-    <div className="row">
-      {categories.categoryArray
-        ? categories.categoryArray.map((cat) => (
+
+  //show size categories
+  const showBlogs = () => (
+    <div className=" w3-col">
+      {blogs.blogsArray
+        ? blogs.blogsArray.map((blog) => (
             <div
-              key={cat._id}
-              className="col-md-3 col-sm-3 col-3"
-              style={{ margin: "1em" }}
+              className="w3-card-4 w3-margin w3-white"
+              key={blog._id}
+              style={{ margin: ".5em" }}
             >
-              <Link
-                to={`/categories/${cat.name}`}
-                className="btn btn-success btn-block"
-                data-toggle="modal"
-                data-target="#addCategoryModal"
+              <img
                 style={{
+                  maxHeight: "250px",
+                  width: "auto",
+
+                  left: "50%",
+                  top: "50%",
+                  height: "auto",
                   width: "100%",
-                  height: "40px",
-                  fontWeight: "900",
-                  borderRadius: "15px",
                 }}
-              >
-                {cat.name}
-              </Link>
+                src={`${BASE_URL}/blog/photo/${blog.slug}`}
+                alt={blog.title}
+                className="card-img-top"
+                alt="..."
+              />
+              <div className="w3-container">
+                <h3>
+                  <b>{blog.title}</b>
+                </h3>
+                <h5>Written by {blog.postedBy.name} </h5>
+              </div>
+
+              <div className="w3-container">
+                <p className="card-text">{renderHTML(String(blog.excerpt))}</p>
+                <div className="w3-row">
+                  <div>
+                    <p>
+                      <Link
+                        style={{ width: "100%" }}
+                        to={`/blog/${blog.slug}`}
+                        className="w3-button w3-padding-large w3-white w3-border"
+                      >
+                        <b>READ MORE »</b>
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           ))
         : ""}
     </div>
   );
-  //show size categories
-  const showBlogs = () => (
+
+  //show all loaded categories
+  const showLoadedBlogs = () => (
     <div className="row">
-      {blogs.blogsArray
-        ? blogs.blogsArray.map((blog) => (
+      {loadedBlogs.length > 1
+        ? loadedBlogs.map((blog) => (
             <div className="card" key={blog._id} style={{ margin: ".5em" }}>
-              <p>
-                Written by {blog.postedBy.name} | Published{" "}
-                {moment(blog.updatedAt).fromNow()}
-              </p>
+              <p>Written by {blog.postedBy.name}</p>
+
               <img
                 style={{ maxHeight: "250px", width: "auto" }}
                 src={`${BASE_URL}/blog/photo/${blog.slug}`}
@@ -160,46 +184,40 @@ const Home = () => {
                   Read More
                 </Link>
               </div>
+              {loadMoreButton()}
             </div>
           ))
         : ""}
     </div>
   );
 
-  const stringRegex = (blog) => {
-    var str = blog.split("");
-    console.log(blog);
-    var nth = 4; // the nth character you want to replace
-    var replaceWith = "|"; // the character you want to replace the nth value
-    for (var i = nth - 1; i < str.length - 1; i += nth) {
-      str[i] = replaceWith;
-    }
-    console.log(str.join(""));
-    return <div>{str.join("")}</div>;
-  };
-  //show all loaded categories
-  const showLoadedBlogs = () => (
-    <div className="row">
-      {loadedBlogs.length > 1
-        ? loadedBlogs.map((blog) => (
-            <div className="card" key={blog._id} style={{ margin: ".5em" }}>
-              <p>
-                Written by {blog.postedBy.name} | Published{" "}
-                {moment(blog.updatedAt).fromNow()}
-              </p>
-              גדשגגגגגגגגגגג
-              <img
-                style={{ maxHeight: "250px", width: "auto" }}
-                src={`${BASE_URL}/blog/photo/${blog.slug}`}
-                alt={blog.title}
-                className="card-img-top"
-                alt="..."
-              />
-              <div className="card-body">
-                <h5 className="card-title">{blog.title}</h5>
-                <p className="card-text">{renderHTML(String(blog.excerpt))}</p>
-                <Link to={`/blog/${blog.slug}`} className="btn btn-primary">
-                  Read More
+  //list all categories
+  const showCategories = () => (
+    <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+      {categories.categoryArray
+        ? categories.categoryArray.map((cat) => (
+            <div
+              key={cat._id}
+              className="w3-card w3-margin"
+              style={{ margin: "1em", backgroundColor: "white" }}
+            >
+              <div class="w3-container w3-padding">
+                <Link
+                  to={`/categories/${cat.name}`}
+                  className="w3-ul w3-hoverable w3-white "
+                  data-toggle="modal"
+                  data-target="#addCategoryModal"
+                  style={{
+                    width: "100%",
+                    height: "40px",
+                    fontWeight: "900",
+                    borderRadius: "15px",
+                    background: "lighblue",
+                    textDecoration: "none",
+                    padding: "7px",
+                  }}
+                >
+                  {cat.name}
                 </Link>
               </div>
             </div>
@@ -212,63 +230,23 @@ const Home = () => {
     <React.Fragment>
       {headMeta()}
       <div>
-        <header id="main-header" className="py-2 bg-primary text-white">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <h1>MAKE BLOG NOT WAR</h1>
-              </div>
-            </div>
-          </div>
-        </header>
-        <section id="actions" className="py-4 mb-4 bg-light">
-          <div className="container">{showCategories()}</div>
+        <section id="actions">
+          <div
+            style={{
+              position: "relative",
+              textAlign: "center",
+              color: "white",
+            }}
+          ></div>
         </section>
         <section id="posts">
           <div className="container">
-            <div className="row">
-              <div className="col-md-9">
-                <div className="card">
-                  <div className="card-header" style={{ textAlign: "center" }}>
-                    <h4>Latest Posts</h4>
-                  </div>
-                </div>
-                <br></br>
-
+            <div>
+              <br></br>
+              <div class="w3-row">{showCategories()}</div>
+              <div class="w3-row">
                 {showBlogs()}
                 {showLoadedBlogs()}
-                {loadMoreButton()}
-              </div>
-              <div className="col-md-3">
-                <div className="card text-center bg-primary text-white mb-3">
-                  <div className="card-body">
-                    <h3>Posts</h3>
-                    <h4 className="display-4">
-                      <i className="fas fa-pencil-alt"></i> {size}
-                    </h4>
-                    <a
-                      href="posts.html"
-                      className="btn btn-outline-light btn-sm"
-                    >
-                      View
-                    </a>
-                  </div>
-                </div>
-
-                <div className="card text-center bg-warning text-white mb-3">
-                  <div className="card-body">
-                    <h3>Categories</h3>
-                    <h4 className="display-4">
-                      <i className="fas fa-folder"></i> {size}
-                    </h4>
-                    <a
-                      href="categories.html"
-                      className="btn btn-outline-light btn-sm"
-                    >
-                      View
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
